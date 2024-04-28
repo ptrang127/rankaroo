@@ -20,6 +20,9 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { NodeEnvs } from '@src/constants/misc';
 import { RouteError } from '@src/other/classes';
 
+import categoryRouter from './routes/Categories';
+import subjectRouter from './routes/Subjects';
+import comparisonRouter from './routes/Comparisons';
 
 // **** Variables **** //
 
@@ -30,7 +33,7 @@ const app = express();
 
 // Basic middleware
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
 
 // Show routes called in console during development
@@ -43,8 +46,6 @@ if (EnvVars.NodeEnv === NodeEnvs.Production.valueOf()) {
   app.use(helmet());
 }
 
-// Add APIs, must be after middleware
-app.use(Paths.Base, BaseRouter);
 
 // Add error handler
 app.use((
@@ -65,26 +66,11 @@ app.use((
 });
 
 
-// ** Front-End Content ** //
+// ** Use routers ** //
 
-// Set views directory (html)
-const viewsDir = path.join(__dirname, 'views');
-app.set('views', viewsDir);
-
-// Set static directory (js and css).
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
-
-// Nav to users pg by default
-app.get('/', (_: Request, res: Response) => {
-  return res.redirect('/users');
-});
-
-// Redirect to login if not logged in.
-app.get('/users', (_: Request, res: Response) => {
-  return res.sendFile('users.html', { root: viewsDir });
-});
-
+app.use('/categories', categoryRouter);
+app.use('/subjects', subjectRouter);
+app.use('/comparisons', comparisonRouter);
 
 // **** Export default **** //
 
