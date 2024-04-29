@@ -19,9 +19,9 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { NodeEnvs } from '@src/constants/misc';
 import { RouteError } from '@src/other/classes';
 
-import categoryRouter from './routes/Categories';
-import subjectRouter from './routes/Subjects';
-import comparisonRouter from './routes/Comparisons';
+import categoryRouter from './routes/CategoriesRouter';
+import subjectRouter from './routes/SubjectsRouter';
+import comparisonRouter from './routes/ComparisonsRouter';
 
 // **** Variables **** //
 
