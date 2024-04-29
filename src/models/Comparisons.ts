@@ -12,10 +12,10 @@ const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' +
 export interface Comparison {
   id: number;
   category: Category;
-  subject_1_id: number;
-  subject_2_id: number;
-  votes_1: number;
-  votes_2: number;
+  firstSubjectId: number;
+  secondSubjectId: number;
+  firstSubjectVotes: number;
+  secondSubjectVotes: number;
 }
 
 
@@ -26,19 +26,19 @@ export interface Comparison {
  */
 function new_(
   category?: Category,
-  subject_1_id?: number,
-  subject_2_id?: number,
-  votes_1?: number,
-  votes_2?: number,
+  firstSubjectId?: number,
+  secondSubjectId?: number,
+  firstSubjectId?: number,
+  secondSubjectVotes?: number,
   id?: number, // id last cause usually set by db
 ): Comparison {
   return {
     id: (id ?? -1),
     category: (category ?? Categories.new()),
-    subject_1_id: (subject_1_id ?? -1),
-    subject_2_id: (subject_2_id ?? -1),
-    votes_1: (votes_1 ?? -1),
-    votes_2: (votes_2 ?? -1),
+    firstSubjectId: (firstSubjectId ?? -1),
+    secondSubjectId: (secondSubjectId ?? -1),
+    firstSubjectVotes: (firstSubjectVotes ?? -1),
+    secondSubjectVotes: (secondSubjectVotes ?? -1),
   };
 }
 
@@ -50,8 +50,8 @@ function from(param: object): Comparison {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   const p = param as Comparison;
-  return new_(p.category, p.subject_1_id, p.subject_2_id,
-    p.votes_1, p.votes_2, p.id);
+  return new_(p.category, p.firstSubjectId, p.secondSubjectId,
+    p.firstSubjectVotes, p.secondSubjectVotes, p.id);
 }
 
 /**
@@ -62,10 +62,10 @@ function isComparison(arg: unknown): boolean {
     !!arg &&
     typeof arg === 'object' &&
     'id' in arg && typeof arg.id === 'number' &&
-    'subject_1_id' in arg && typeof arg.id === 'number' &&
-    'subject_2_id' in arg && typeof arg.id === 'number' &&
-    'votes_1' in arg && typeof arg.id === 'number' &&
-    'votes_2' in arg && typeof arg.id === 'number' &&
+    'firstSubjectId' in arg && typeof arg.id === 'number' &&
+    'secondSubjectId' in arg && typeof arg.id === 'number' &&
+    'firstSubjectVotes' in arg && typeof arg.id === 'number' &&
+    'secondSubjectVotes' in arg && typeof arg.id === 'number' &&
     'category' in arg && typeof arg.category === 'object'
   );
 }
