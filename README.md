@@ -1,7 +1,31 @@
-## About
+# Rankaroo
 
-This project was created with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript).
+The backend service is a RESTful API built using Node.js and TypeScript with the Express framework. It serves as the backend for Rankaroo, a web application that allows users to rank different subjects. Leveraging Express, the API efficiently handles HTTP requests and responses, enalbing communication between the frontend and backend. With TypeScript, the codebase benefits from static typing, enhancing code reliability and maintainability. The backend provides endpoints for CRUD operations on categories, subjects, and comparisons.
 
+## Getting Started
+
+1. Clone the repository
+
+```
+git clone https://github.com/ptrang127/rankaroo.git
+```
+2. Install packages
+```
+npm i
+```
+3. [Set up database](#database-setup)
+
+4. Run the database migration (requires local PostgreSQL server)
+```
+npm run migrate
+```
+5. Start the server
+```
+npm run dev
+```
+
+## Database Setup
+Rankaroo leverages PostgreSQL as its primary database management system to store and manage data efficiently. To get PostgreSQL running locally, download [PostgreSQL](https://www.postgresql.org/download/) server and your preferred database management tool.
 
 ## Available Scripts
 
@@ -9,17 +33,9 @@ This project was created with [express-generator-typescript](https://github.com/
 
 Run the server in development mode.
 
-### `npm test`
+### `npm run migrate`
 
-Run all unit-tests with hot-reloading.
-
-### `npm test -- --testFile="name of test file" (i.e. --testFile=Users).`
-
-Run a single unit-test.
-
-### `npm run test:no-reloading`
-
-Run all unit-tests without hot-reloading.
+Migrate local database.
 
 ### `npm run lint`
 
@@ -39,5 +55,6 @@ Run production build with a different env file.
 
 
 ## Additional Notes
+- This project was created with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript).
 
 - If `npm run dev` gives you issues with bcrypt on MacOS you may need to run: `npm rebuild bcrypt --build-from-source`. 
