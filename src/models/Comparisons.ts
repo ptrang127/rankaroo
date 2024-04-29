@@ -11,7 +11,7 @@ const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' +
 
 export interface Comparison {
   id: number;
-  category: Category;
+  categoryId: number;
   firstSubjectId: number;
   secondSubjectId: number;
   firstSubjectVotes: number;
@@ -25,16 +25,16 @@ export interface Comparison {
  * Create new Comparison.
  */
 function new_(
-  category?: Category,
+  id?: number,
+  categoryId?: number,
   firstSubjectId?: number,
   secondSubjectId?: number,
   firstSubjectVotes?: number,
   secondSubjectVotes?: number,
-  id?: number, // id last cause usually set by db
 ): Comparison {
   return {
     id: (id ?? -1),
-    category: (category ?? Categories.new()),
+    categoryId: (categoryId ?? -1),
     firstSubjectId: (firstSubjectId ?? -1),
     secondSubjectId: (secondSubjectId ?? -1),
     firstSubjectVotes: (firstSubjectVotes ?? -1),
@@ -50,8 +50,8 @@ function from(param: object): Comparison {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   const p = param as Comparison;
-  return new_(p.category, p.firstSubjectId, p.secondSubjectId,
-    p.firstSubjectVotes, p.secondSubjectVotes, p.id);
+  return new_(p.id, p.categoryId, p.firstSubjectId, p.secondSubjectId,
+    p.firstSubjectVotes, p.secondSubjectVotes);
 }
 
 /**
@@ -62,11 +62,11 @@ function isComparison(arg: unknown): boolean {
     !!arg &&
     typeof arg === 'object' &&
     'id' in arg && typeof arg.id === 'number' &&
+    'categoryId' in arg && typeof arg.categoryId === 'number' &&
     'firstSubjectId' in arg && typeof arg.id === 'number' &&
     'secondSubjectId' in arg && typeof arg.id === 'number' &&
     'firstSubjectVotes' in arg && typeof arg.id === 'number' &&
-    'secondSubjectVotes' in arg && typeof arg.id === 'number' &&
-    'category' in arg && typeof arg.category === 'object'
+    'secondSubjectVotes' in arg && typeof arg.id === 'number'
   );
 }
 

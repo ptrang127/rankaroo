@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS subjects (
 	id SERIAL PRIMARY KEY,
 	category_id integer REFERENCES categories,
 	name varchar NOT NULL,
-	score integer DEFAULT 0
+	wins integer DEFAULT 0,
+	losses integer DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS comparisons (
@@ -21,7 +22,8 @@ CREATE TABLE IF NOT EXISTS comparisons (
 	first_subject_id integer REFERENCES subjects,
 	second_subject_id integer REFERENCES subjects,
 	first_subject_votes integer,
-	second_subject_votes integer
+	second_subject_votes integer,
+	UNIQUE (first_subject_id, second_subject_id)
 );
 
 INSERT INTO categories (name) VALUES ('Video Games');
@@ -51,5 +53,3 @@ INSERT INTO subjects (category_id, name) VALUES (1, 'Hades');
 INSERT INTO subjects (category_id, name) VALUES (1, 'Genshin Impact');
 INSERT INTO subjects (category_id, name) VALUES (1, 'Phasmophobia');
 INSERT INTO subjects (category_id, name) VALUES (1, 'Among Us');
-
-
