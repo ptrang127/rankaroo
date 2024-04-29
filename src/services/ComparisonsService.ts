@@ -44,6 +44,7 @@ async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryId:
         .onConflict(['first_subject_id', 'second_subject_id'])
         .merge()
         .returning('*');
+
     return Comparisons.fromRecord(updatedRecord[0]);
 }
 
