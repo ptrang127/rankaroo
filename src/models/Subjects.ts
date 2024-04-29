@@ -11,7 +11,7 @@ const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' +
 
 export interface Subject {
   id: number;
-  category: Category
+  categoryId: number;
   name: string;
 }
 
@@ -23,12 +23,12 @@ export interface Subject {
  */
 function new_(
   name?: string,
-  category?: Category,
+  categoryId?: number,
   id?: number, // id last cause usually set by db
 ): Subject {
   return {
     id: (id ?? -1),
-    category: (category ?? Categories.new()),
+    categoryId: (categoryId ?? -1),
     name: (name ?? ''),
   };
 }
@@ -41,7 +41,7 @@ function from(param: object): Subject {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   const p = param as Subject;
-  return new_(p.name, p.category, p.id);
+  return new_(p.name, p.categoryId, p.id);
 }
 
 /**
@@ -53,7 +53,7 @@ function isSubject(arg: unknown): boolean {
     typeof arg === 'object' &&
     'id' in arg && typeof arg.id === 'number' && 
     'name' in arg && typeof arg.name === 'string' &&
-    'category' in arg && typeof arg.category === 'object'
+    'categoryId' in arg && typeof arg.categoryId === 'number'
   );
 }
 
