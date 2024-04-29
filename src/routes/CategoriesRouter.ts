@@ -16,7 +16,7 @@ categoryRouter.get('/', async function (req, res) {
 categoryRouter.get('/:id', async function (req, res) {
   const categoryId = req.params.id;
   const category: Category = await pg('categories').where({id: categoryId}).first('*');
-  res.send(JSON.stringify(category));
+  res.send(category);
 });
 
 export default categoryRouter;
