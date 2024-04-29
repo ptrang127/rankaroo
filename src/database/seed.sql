@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS comparisons (
 	second_subject_id integer REFERENCES subjects,
 	first_subject_votes integer,
 	second_subject_votes integer,
-	UNIQUE (first_subject_id, second_subject_id)
+	UNIQUE (first_subject_id, second_subject_id),
+	CONSTRAINT not_equal check (first_subject_id <> second_subject_id)
 );
 
 CREATE UNIQUE INDEX comparison_subject_ids ON comparisons (
