@@ -27,6 +27,14 @@ npm run dev
 ## Database Setup
 Rankaroo leverages PostgreSQL as its primary database management system to store and manage data efficiently. To get PostgreSQL running locally, download [PostgreSQL](https://www.postgresql.org/download/) server and your preferred database management tool.
 
+Locally create a database with the following configuration:
+```
+database: rankaroo
+user: postgres
+password: password
+port: 5432
+```
+
 ## Available Scripts
 
 ### `npm run dev`
