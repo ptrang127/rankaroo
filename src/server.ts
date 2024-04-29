@@ -11,8 +11,6 @@ import logger from 'jet-logger';
 
 import 'express-async-errors';
 
-import Paths from '@src/constants/Paths';
-
 import EnvVars from '@src/constants/EnvVars';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
