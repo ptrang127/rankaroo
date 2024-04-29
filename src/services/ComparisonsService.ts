@@ -27,12 +27,15 @@ async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryId:
     var secondId = Math.max(firstSubjectId, secondSubjectId);
 
     // try to get an existing comparison record
-    var foundComparison = await getComparisonByFirstSubjectIdAndSecondSubjectId(firstId, secondId);
+    var comparisonRecord = await pg('comparisons').where({
+        first_subject_id: firstId,
+        second_subject_id: secondId
+    }).first();
 
     // create a new comparison object or update the existing one
-    var comparison: Comparison = (foundComparison == null) ?
+    var comparison: Comparison = (comparisonRecord == null) ?
         Comparisons.new(undefined, categoryId, firstId, secondId, 0, 0) :
-        foundComparison;
+        Comparisons.fromRecord(comparisonRecord);
 
     // increment the votes based on the voteId
     comparison.firstSubjectVotes = (voteId == firstId) ? comparison.firstSubjectVotes + 1 : comparison.firstSubjectVotes;
@@ -44,7 +47,6 @@ async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryId:
         .onConflict(['first_subject_id', 'second_subject_id'])
         .merge()
         .returning('*');
-
     return Comparisons.fromRecord(updatedRecord[0]);
 }
 
