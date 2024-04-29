@@ -27,15 +27,12 @@ async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryId:
     var secondId = Math.max(firstSubjectId, secondSubjectId);
 
     // try to get an existing comparison record
-    var comparisonRecord = await pg('comparisons').where({
-        first_subject_id: firstId,
-        second_subject_id: secondId
-    }).first();
+    var foundComparison = await getComparisonByFirstSubjectIdAndSecondSubjectId(firstId, secondId);
 
     // create a new comparison object or update the existing one
-    var comparison: Comparison = (comparisonRecord == null) ?
+    var comparison: Comparison = (foundComparison == null) ?
         Comparisons.new(undefined, categoryId, firstId, secondId, 0, 0) :
-        Comparisons.fromRecord(comparisonRecord);
+        foundComparison;
 
     // increment the votes based on the voteId
     comparison.firstSubjectVotes = (voteId == firstId) ? comparison.firstSubjectVotes + 1 : comparison.firstSubjectVotes;
