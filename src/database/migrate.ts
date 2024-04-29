@@ -6,10 +6,13 @@ import pg from './knex';
 const sql = fs.readFileSync(path.resolve(__dirname, "../database/seed.sql")).toString();
 
 // seed the database using our pg connection
-(async () => {
-    await pg.raw(sql).then(function(resp) {
-        console.log('Database seeded');
-    }).catch(err =>{
+async function migrate() {
+    await pg.raw(sql).catch(err => {
         console.log(err);
+    }).finally(function () {
+        console.log('Database seeded successfully!')
+        pg.destroy();
     });
-})();
+};
+
+migrate();
