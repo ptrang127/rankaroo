@@ -1,3 +1,8 @@
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS subjects CASCADE;
+DROP TABLE IF EXISTS comparisons CASCADE;
+
+
 CREATE TABLE IF NOT EXISTS categories (
 	id BIGSERIAL PRIMARY KEY,
 	name VARCHAR NOT NULL
@@ -13,8 +18,8 @@ CREATE TABLE IF NOT EXISTS subjects (
 CREATE TABLE IF NOT EXISTS comparisons (
 	id BIGSERIAL PRIMARY KEY,
 	category_id integer REFERENCES categories,
-	subject_1_id integer REFERENCES subjects,
-	subject_2_id integer REFERENCES subjects,
-	votes_1 integer,
-	votes_2 integer
+	first_subject_id integer REFERENCES subjects,
+	second_subject_id integer REFERENCES subjects,
+	first_subject_votes integer,
+	second_subject_votes integer
 );
