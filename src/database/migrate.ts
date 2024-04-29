@@ -11,4 +11,4 @@ const sql = fs.readFileSync(path.resolve(__dirname, "../database/seed.sql")).toS
         console.log('Database seeded');
         console.log(resp);
     });
-});
+})();

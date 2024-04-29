@@ -23,3 +23,13 @@ CREATE TABLE IF NOT EXISTS comparisons (
 	first_subject_votes integer,
 	second_subject_votes integer
 );
+
+INSERT INTO categories (name) VALUES ('Video Games');
+
+INSERT INTO subjects (category_id, name) VALUES (1, 'The Legend of Zelda: Breath of the Wild');
+INSERT INTO subjects (category_id, name) VALUES (1, 'Super Mario Odyssey');
+INSERT INTO subjects (category_id, name) VALUES (1, 'The Witcher 3: Wild Hunt');
+INSERT INTO subjects (category_id, name) VALUES (1, 'Red Dead Redemption 2');
+INSERT INTO subjects (category_id, name) VALUES (1, 'God of War');
+INSERT INTO subjects (category_id, name) VALUES (1, 'League of Legends');
+INSERT INTO subjects (category_id, name) VALUES (1, 'Valorant');
