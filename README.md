@@ -1,6 +1,6 @@
 ![title](./src/assets/rankaroo.png "Rankaroo")
 
-The backend service is a RESTful API built using Node.js and TypeScript with the Express framework. It serves as the backend for Rankaroo, a web application that allows users to rank different subjects. Leveraging Express, the API efficiently handles HTTP requests and responses, enalbing communication between the frontend and backend. With TypeScript, the codebase benefits from static typing, enhancing code reliability and maintainability. The backend provides endpoints for CRUD operations on categories, subjects, and comparisons.
+RESTful API built using Node.js and TypeScript with the Express framework. It serves as the backend for Rankaroo, a web application that allows users to rank different subjects. Leveraging Express, the API efficiently handles HTTP requests and responses, enalbing communication between the frontend and backend. With TypeScript, the codebase benefits from static typing, enhancing code reliability and maintainability. The backend provides endpoints for CRUD operations on categories, subjects, and comparisons.
 
 ## Getting Started
 
@@ -34,6 +34,8 @@ user: postgres
 password: password
 port: 5432
 ```
+
+Rankaroo uses [Knex](https://knexjs.org/) for the database connection and query building.
 
 ## Available Scripts
 
