@@ -4,7 +4,7 @@ import pg from '../database/knex';
 
 async function getComparisonById(id: number): Promise<Comparison> {
     const categoryRecord = await pg('comparisons').where({ id: id }).first();
-    return Comparisons.from(categoryRecord);
+    return Comparisons.fromRecord(categoryRecord);
 }
 
 async function getComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjectId: number, secondSubjectId: number): Promise<Comparison> {
@@ -12,49 +12,39 @@ async function getComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjectId: n
         first_subject_id: firstSubjectId,
         second_subject_id: secondSubjectId
     }).first();
-    return Comparisons.from(comparisonRecord);
+    return Comparisons.fromRecord(comparisonRecord);
 }
 
 async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryId: number, firstSubjectId: number, secondSubjectId: number, voteId: number): Promise<Comparison> {
 
+    console.log("firstSubjectId: " + firstSubjectId);
+    console.log("secondSubjectId: " + secondSubjectId);
+    var firstId = Math.min(firstSubjectId, secondSubjectId);
+    var secondId = Math.max(firstSubjectId, secondSubjectId);
     var comparisonRecord = await pg('comparisons').where({
-        first_subject_id: firstSubjectId,
-        second_subject_id: secondSubjectId
+        first_subject_id: firstId,
+        second_subject_id: secondId
     }).first();
 
-    var comparison: Comparison = (comparisonRecord == null) ?
-        Comparisons.new(categoryId, firstSubjectId, secondSubjectId, 0, 0, undefined) :
-        Comparisons.from({
-            id: comparisonRecord.id,
-            categoryId: comparisonRecord.category_id,
-            firstSubjectId: comparisonRecord.first_subject_id,
-            secondSubjectId: comparisonRecord.second_subject_id,
-            firstSubjectVotes: comparisonRecord.first_subject_votes,
-            secondSubjectVotes: comparisonRecord.second_subject_votes
-        });
+    console.log("comparisonRecord");
+    console.log(comparisonRecord);
 
-    comparison.firstSubjectVotes = (voteId == firstSubjectId) ? comparison.firstSubjectVotes + 1 : comparison.firstSubjectVotes;
-    comparison.secondSubjectVotes = (voteId == secondSubjectId) ? comparison.secondSubjectVotes + 1 : comparison.secondSubjectVotes;
+
+    var comparison: Comparison = (comparisonRecord == null) ?
+        Comparisons.new(undefined, categoryId, firstId, secondId, 0, 0) :
+        Comparisons.fromRecord(comparisonRecord);
+
+    console.log("comparison");
+    console.log(comparison);
+
+    comparison.firstSubjectVotes = (voteId == firstId) ? comparison.firstSubjectVotes + 1 : comparison.firstSubjectVotes;
+    comparison.secondSubjectVotes = (voteId == secondId) ? comparison.secondSubjectVotes + 1 : comparison.secondSubjectVotes;
     const updatedRecord = await pg('comparisons')
-        .insert({
-            category_id: comparison.categoryId,
-            first_subject_id: comparison.firstSubjectId,
-            second_subject_id: comparison.secondSubjectId,
-            first_subject_votes: comparison.firstSubjectVotes,
-            second_subject_votes: comparison.secondSubjectVotes
-        })
+        .insert(Comparisons.toRecord(comparison))
         .onConflict(['first_subject_id', 'second_subject_id'])
         .merge()
         .returning('*');
-    console.log(updatedRecord);
-    return Comparisons.from({
-        id: updatedRecord[0].id,
-        categoryId: updatedRecord[0].category_id,
-        firstSubjectId: updatedRecord[0].first_subject_id,
-        secondSubjectId: updatedRecord[0].second_subject_id,
-        firstSubjectVotes: updatedRecord[0].first_subject_votes,
-        secondSubjectVotes: updatedRecord[0].second_subject_votes
-    });
+    return Comparisons.fromRecord(updatedRecord[0]);
 }
 
 

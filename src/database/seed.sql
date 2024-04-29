@@ -26,6 +26,11 @@ CREATE TABLE IF NOT EXISTS comparisons (
 	UNIQUE (first_subject_id, second_subject_id)
 );
 
+CREATE UNIQUE INDEX comparison_subject_ids ON comparisons (
+	least(first_subject_votes, second_subject_votes),
+	greatest(first_subject_votes, second_subject_votes)
+);
+
 INSERT INTO categories (name) VALUES ('Video Games');
 
 INSERT INTO subjects (category_id, name) VALUES (1, 'The Legend of Zelda: Breath of the Wild');
