@@ -13,7 +13,7 @@ subjectRouter.get('/', async function (req, res) {
 
 subjectRouter.get('/:id', async function (req, res) {
   const subjectId = req.params.id;
-  const subject: Subject = await pg('categories').where({id: subjectId}).first('*');
+  const subject: Subject = await pg('subjects').where({id: subjectId}).first('*');
   res.send(subject);
 });
 

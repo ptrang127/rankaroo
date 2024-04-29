@@ -28,7 +28,7 @@ function new_(
   category?: Category,
   firstSubjectId?: number,
   secondSubjectId?: number,
-  firstSubjectId?: number,
+  firstSubjectVotes?: number,
   secondSubjectVotes?: number,
   id?: number, // id last cause usually set by db
 ): Comparison {
