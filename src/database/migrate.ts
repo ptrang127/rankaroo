@@ -9,6 +9,5 @@ const sql = fs.readFileSync(path.resolve(__dirname, "../database/seed.sql")).toS
 (async () => {
     await pg.raw(sql).then(function(resp) {
         console.log('Database seeded');
-        console.log(resp);
     });
 })();
