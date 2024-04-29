@@ -8,6 +8,7 @@ export const pg = knex({
         user: 'postgres',
         database: 'rankaroo',
         password: 'password',
+        multipleStatements: true,
     },
 });
 
