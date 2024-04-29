@@ -65,8 +65,8 @@ function newRecord_(
   return {
     id: (id ?? undefined),
     category_id: (category_id ?? -1),
-    first_subject_id: (second_subject_id ?? -1),
-    second_subject_id: (first_subject_id ?? -1),
+    first_subject_id: (first_subject_id ?? -1),
+    second_subject_id: (second_subject_id ?? -1),
     first_subject_votes: (first_subject_votes ?? 0),
     second_subject_votes: (second_subject_votes ?? 0),
   };

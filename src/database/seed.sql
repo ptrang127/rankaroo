@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS comparisons (
 );
 
 CREATE UNIQUE INDEX comparison_subject_ids ON comparisons (
-	least(first_subject_votes, second_subject_votes),
-	greatest(first_subject_votes, second_subject_votes)
+	least(first_subject_id, second_subject_id),
+	greatest(first_subject_id, second_subject_id)
 );
 
 INSERT INTO categories (name) VALUES ('Video Games');
