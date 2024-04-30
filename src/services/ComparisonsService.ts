@@ -2,16 +2,6 @@ import Comparisons, { Comparison } from '@src/models/Comparisons';
 import pg from '../database/knex';
 
 
-async function getAllComparisons(): Promise<Comparison[]> {
-    const comparisonRecords = await pg('comparisons').select('*');
-    return comparisonRecords.map(Comparisons.fromRecord);
-}
-
-async function getComparisonById(id: number): Promise<Comparison> {
-    const categoryRecord = await pg('comparisons').where({ id: id }).first();
-    return Comparisons.fromRecord(categoryRecord);
-}
-
 async function getComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjectId: number, secondSubjectId: number): Promise<Comparison> {
     const comparisonRecord = await pg('comparisons').where({
         first_subject_id: firstSubjectId,
@@ -54,8 +44,6 @@ async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjec
 // **** Export default **** //
 
 export default {
-    getAllComparisons,
-    getComparisonById,
     getComparisonByFirstSubjectIdAndSecondSubjectId,
     incrementComparisonByFirstSubjectIdAndSecondSubjectId,
 } as const;

@@ -6,15 +6,10 @@ import ComparisonsService from '@src/services/ComparisonsService';
 
 const comparisonRouter = express.Router();
 
-// Define routes
-comparisonRouter.get('/', async function (req, res) {
-  const comparisons: Comparison[] = await ComparisonsService.getAllComparisons();
-  res.send(comparisons);
-});
-
-comparisonRouter.get('/:id', async function (req, res) {
-  const comparisonId = parseInt(req.params.id);
-  const comparison: Comparison = await ComparisonsService.getComparisonById(comparisonId);
+comparisonRouter.get('/:firstId/:secondId', async function (req, res) {
+  const firstId = parseInt(req.params.firstId);
+  const secondId = parseInt(req.params.secondId);
+  const comparison: Comparison = await ComparisonsService.getComparisonByFirstSubjectIdAndSecondSubjectId(firstId, secondId);
   res.send(comparison);
 });
 
