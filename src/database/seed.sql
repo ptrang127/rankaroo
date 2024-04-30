@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS subjects (
 
 CREATE TABLE IF NOT EXISTS comparisons (
 	id SERIAL PRIMARY KEY,
-	category_id integer REFERENCES categories,
 	first_subject_id integer REFERENCES subjects,
 	second_subject_id integer REFERENCES subjects,
 	first_subject_votes integer,

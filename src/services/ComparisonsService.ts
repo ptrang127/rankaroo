@@ -20,7 +20,7 @@ async function getComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjectId: n
     return Comparisons.fromRecord(comparisonRecord);
 }
 
-async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryId: number, firstSubjectId: number, secondSubjectId: number, voteId: number): Promise<Comparison> {
+async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjectId: number, secondSubjectId: number, voteId: number): Promise<Comparison> {
 
     // order the IDs to avoid duplicates
     var firstId = Math.min(firstSubjectId, secondSubjectId);
@@ -34,7 +34,7 @@ async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryId:
 
     // create a new comparison object or update the existing one
     var comparison: Comparison = (comparisonRecord == null) ?
-        Comparisons.new(undefined, categoryId, firstId, secondId, 0, 0) :
+        Comparisons.new(undefined, firstId, secondId, 0, 0) :
         Comparisons.fromRecord(comparisonRecord);
 
     // increment the votes based on the voteId

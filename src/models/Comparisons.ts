@@ -1,17 +1,9 @@
 import Categories, { Category } from './Categories';
 
-
-// **** Variables **** //
-
-const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' +
-  'with the appropriate keys.';
-
-
 // **** Types **** //
 
 export interface Comparison {
   id?: number;
-  categoryId: number;
   firstSubjectId: number;
   secondSubjectId: number;
   firstSubjectVotes: number;
@@ -20,7 +12,6 @@ export interface Comparison {
 
 export interface ComparisonRecord {
   id?: number;
-  category_id: number;
   first_subject_id: number;
   second_subject_id: number;
   first_subject_votes: number;
@@ -35,7 +26,6 @@ export interface ComparisonRecord {
  */
 function new_(
   id?: number,
-  categoryId?: number,
   firstSubjectId?: number,
   secondSubjectId?: number,
   firstSubjectVotes?: number,
@@ -43,7 +33,6 @@ function new_(
 ): Comparison {
   return {
     id: (id ?? undefined),
-    categoryId: (categoryId ?? -1),
     firstSubjectId: (firstSubjectId ?? -1),
     secondSubjectId: (secondSubjectId ?? -1),
     firstSubjectVotes: (firstSubjectVotes ?? -1),
@@ -56,7 +45,6 @@ function new_(
  */
 function newRecord_(
   id?: number,
-  category_id?: number,
   first_subject_id?: number,
   second_subject_id?: number,
   first_subject_votes?: number,
@@ -64,7 +52,6 @@ function newRecord_(
 ): ComparisonRecord {
   return {
     id: (id ?? undefined),
-    category_id: (category_id ?? -1),
     first_subject_id: (first_subject_id ?? -1),
     second_subject_id: (second_subject_id ?? -1),
     first_subject_votes: (first_subject_votes ?? 0),
@@ -72,20 +59,24 @@ function newRecord_(
   };
 }
 
+/**
+ * Create new Comparison from Comparison Record.
+ */
 function fromRecord(record: ComparisonRecord): Comparison {
   return new_(
     record.id,
-    record.category_id,
     record.first_subject_id,
     record.second_subject_id,
     record.first_subject_votes,
     record.second_subject_votes);
 }
 
+/**
+ * Create new Comparison Record from Comparison.
+ */
 function toRecord(comparison: Comparison): ComparisonRecord {
   return newRecord_(
     comparison.id,
-    comparison.categoryId,
     comparison.firstSubjectId,
     comparison.secondSubjectId,
     comparison.firstSubjectVotes,
@@ -100,7 +91,6 @@ function isComparison(arg: unknown): boolean {
     !!arg &&
     typeof arg === 'object' &&
     'id' in arg && typeof arg.id === 'number' &&
-    'categoryId' in arg && typeof arg.categoryId === 'number' &&
     'firstSubjectId' in arg && typeof arg.id === 'number' &&
     'secondSubjectId' in arg && typeof arg.id === 'number' &&
     'firstSubjectVotes' in arg && typeof arg.id === 'number' &&

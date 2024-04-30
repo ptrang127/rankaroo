@@ -18,12 +18,11 @@ comparisonRouter.get('/:id', async function (req, res) {
   res.send(comparison);
 });
 
-comparisonRouter.post('/:categoryId/:firstId/:secondId/:voteId', async function (req, res) {
-  const categoryid = parseInt(req.params.categoryId);
+comparisonRouter.post('/:firstId/:secondId/:voteId', async function (req, res) {
   const firstId = parseInt(req.params.firstId);
   const secondId = parseInt(req.params.secondId);
   const voteId = parseInt(req.params.voteId);
-  const comparison: Comparison = await ComparisonsService.incrementComparisonByFirstSubjectIdAndSecondSubjectId(categoryid, firstId, secondId, voteId);
+  const comparison: Comparison = await ComparisonsService.incrementComparisonByFirstSubjectIdAndSecondSubjectId(firstId, secondId, voteId);
   res.send(comparison)
 });
 
