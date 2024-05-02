@@ -13,6 +13,8 @@ export interface Subject {
   id: number;
   categoryId: number;
   name: string;
+  wins: number;
+  losses: number
 }
 
 
@@ -22,14 +24,18 @@ export interface Subject {
  * Create new Subject.
  */
 function new_(
-  name?: string,
+  id?: number,
   categoryId?: number,
-  id?: number, // id last cause usually set by db
+  name?: string,
+  wins?: number,
+  losses?: number,
 ): Subject {
   return {
     id: (id ?? -1),
     categoryId: (categoryId ?? -1),
     name: (name ?? ''),
+    wins: (wins ?? 0),
+    losses: (losses ?? 0),
   };
 }
 
@@ -41,7 +47,7 @@ function from(param: object): Subject {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   const p = param as Subject;
-  return new_(p.name, p.categoryId, p.id);
+  return new_(p.id, p.categoryId, p.name, p.wins, p.losses);
 }
 
 /**
@@ -52,8 +58,10 @@ function isSubject(arg: unknown): boolean {
     !!arg &&
     typeof arg === 'object' &&
     'id' in arg && typeof arg.id === 'number' && 
+    'categoryId' in arg && typeof arg.categoryId === 'number' &&
     'name' in arg && typeof arg.name === 'string' &&
-    'categoryId' in arg && typeof arg.categoryId === 'number'
+    'wins' in arg && typeof arg.wins === 'number' &&
+    'losses' in arg && typeof arg.losses === 'number'
   );
 }
 

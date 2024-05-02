@@ -18,8 +18,8 @@ export interface Category {
  * Create new Category.
  */
 function new_(
-  name?: string,
   id?: number, // id last cause usually set by db
+  name?: string,
 ): Category {
   return {
     id: (id ?? -1),
@@ -35,7 +35,7 @@ function from(param: object): Category {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   const p = param as Category;
-  return new_(p.name, p.id);
+  return new_(p.id, p.name);
 }
 
 /**
