@@ -58,7 +58,7 @@ function isSubject(arg: unknown): boolean {
     !!arg &&
     typeof arg === 'object' &&
     'id' in arg && typeof arg.id === 'number' && 
-    'categoryId' in arg && typeof arg.categoryId === 'number' &&
+    'category_id' in arg && typeof arg.category_id === 'number' &&
     'name' in arg && typeof arg.name === 'string' &&
     'wins' in arg && typeof arg.wins === 'number' &&
     'losses' in arg && typeof arg.losses === 'number'

@@ -1,10 +1,30 @@
-import { Subject } from '@src/models/Subjects';
-import pg from '../database/knex.ts';
+import Subjects, { Subject } from '@src/models/Subjects';
+import pg from '../database/knex';
 
-async function getSubjectsByCategory(categoryId: number): Promise<Subject[]> {
-  // 1. Use knex (pg) to query the Subjects table. Take a look at getAllCategories in the CategoriesService.ts file. 
+async function getAllSubjects(): Promise<Subject[]> {
+  const subjectRecords = await pg('subjects').select('*');
 
-  // 2. Convert the record received from the Subjects table to the Subject model
+  const subjects = subjectRecords.map(Subjects.from);
 
-  // 3. Return the list of subjects
+  return subjects;
 }
+
+async function getBySubjectId(subjectId: number): Promise<Subject> {
+  const subject: Subject = await pg('subjects').where({id: subjectId}).first('*');
+
+  return subject;
+}
+
+async function getByCategory(categoryId: number): Promise<Subject[]> {
+  const subjectRecords = await pg('subjects').where({category_id: categoryId}).select('*');
+
+  const subjects: Subject[] = subjectRecords.map(Subjects.from)
+
+  return subjects
+}
+
+export default {
+  getAllSubjects,
+  getBySubjectId,
+  getByCategory
+} as const;
