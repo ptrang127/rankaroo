@@ -10,13 +10,13 @@ async function getAllSubjects(): Promise<Subject[]> {
 }
 
 async function getBySubjectId(subjectId: number): Promise<Subject> {
-  const subject: Subject = await pg('subjects').where({id: subjectId}).first('*');
+  const subject: Subject = await pg('subjects').where({ id: subjectId }).first('*');
 
   return subject;
 }
 
 async function getByCategory(categoryId: number): Promise<Subject[]> {
-  const subjectRecords = await pg('subjects').where({category_id: categoryId}).select('*');
+  const subjectRecords = await pg('subjects').where({ category_id: categoryId }).select('*');
 
   const subjects: Subject[] = subjectRecords.map(Subjects.fromRecord)
 
@@ -27,11 +27,11 @@ async function getRandomSubjectsByCategory(categoryId: number): Promise<Subject[
 
   // Query to get 2 random subject records
   const getRandomRecords = async () => {
-      const records = await pg('subjects')
+    const records = await pg('subjects')
       .where('category_id', categoryId)
       .orderByRaw('RANDOM()')
       .limit(2);
-      return records.map(Subjects.fromRecord);
+    return records.map(Subjects.fromRecord);
   };
 
   // Call the function
