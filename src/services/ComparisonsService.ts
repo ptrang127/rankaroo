@@ -1,4 +1,5 @@
 import Comparisons, { Comparison } from '@src/models/Comparisons';
+import Subjects, { Subject } from '@src/models/Subjects';
 import pg from '../database/knex';
 
 
@@ -8,6 +9,28 @@ async function getComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjectId: n
         second_subject_id: secondSubjectId
     }).first();
     return Comparisons.fromRecord(comparisonRecord);
+}
+
+async function getComparisonByCategory(categoryId: number): Promise<Subject[]> {
+    // Query to get 2 random records
+    const getRandomRecords = async () => {
+        const records = await pg('subjects')
+        .where('category_id', categoryId)
+        .orderByRaw('RANDOM()') // Use RAND() for MySQL instead of RANDOM()
+        .limit(2);
+    
+        return records.map(Subjects.fromRecord);
+    };
+  
+    // Call the function
+    const response: Subject[] = await getRandomRecords()
+        //.then((records) => console.log(records))
+        //.catch((err) => console.error('Error fetching records:', err))
+        //.finally(() => pg.destroy()); // Close the connection
+    
+    console.log(response);
+    //return getComparisonByFirstSubjectIdAndSecondSubjectId(response[0].id, response[1].id);
+    return response;
 }
 
 async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjectId: number, secondSubjectId: number, voteId: number): Promise<Comparison> {
@@ -45,5 +68,6 @@ async function incrementComparisonByFirstSubjectIdAndSecondSubjectId(firstSubjec
 
 export default {
     getComparisonByFirstSubjectIdAndSecondSubjectId,
+    getComparisonByCategory,
     incrementComparisonByFirstSubjectIdAndSecondSubjectId,
 } as const;

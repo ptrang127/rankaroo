@@ -13,6 +13,12 @@ comparisonRouter.get('/:firstId/:secondId', async function (req, res) {
   res.send(comparison);
 });
 
+comparisonRouter.get('/:categoryId', async function (req, res) {
+  const categoryId = parseInt(req.params.categoryId);
+  const comparison: Comparison = await ComparisonsService.getComparisonByCategory(categoryId);
+  res.send(comparison);
+});
+
 comparisonRouter.post('/:firstId/:secondId/:voteId', async function (req, res) {
   const firstId = parseInt(req.params.firstId);
   const secondId = parseInt(req.params.secondId);

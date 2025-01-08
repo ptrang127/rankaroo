@@ -17,6 +17,14 @@ export interface Subject {
   losses: number
 }
 
+export interface SubjectRecord {
+  id: number;
+  category_id: number;
+  name: string;
+  wins: number;
+  losses: number
+}
+
 
 // **** Functions **** //
 
@@ -65,6 +73,49 @@ function isSubject(arg: unknown): boolean {
   );
 }
 
+/**
+ * Create new subject Record.
+ */
+function newRecord_(
+  id: number,
+  category_id?: number,
+  name?: string,
+  wins?: number,
+  losses?: number,
+): SubjectRecord {
+  return {
+    id: (id ?? undefined),
+    category_id: (category_id ?? -1),
+    name: (name ?? ''),
+    wins: (wins ?? 0),
+    losses: (losses ?? 0),
+  };
+}
+
+
+/**
+ * Create new Subject from Subject Record.
+ */
+function fromRecord(record: SubjectRecord): Subject {
+  return new_(
+    record.id,
+    record.category_id,
+    record.name,
+    record.wins,
+    record.losses);
+}
+
+/**
+ * Create new Subject Record from Subject.
+ */
+function toRecord(subject: Subject): SubjectRecord {
+  return newRecord_(
+    subject.id,
+    subject.categoryId,
+    subject.name,
+    subject.wins,
+    subject.losses);
+}
 
 // **** Export default **** //
 
@@ -72,4 +123,6 @@ export default {
   new: new_,
   from,
   isSubject,
+  fromRecord,
+  toRecord,
 } as const;
