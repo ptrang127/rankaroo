@@ -48,17 +48,6 @@ function new_(
 }
 
 /**
- * Get subject instance from object.
- */
-function from(param: object): Subject {
-  if (!isSubject(param)) {
-    throw new Error(INVALID_CONSTRUCTOR_PARAM);
-  }
-  const p = param as Subject;
-  return new_(p.id, p.categoryId, p.name, p.wins, p.losses);
-}
-
-/**
  * See if the param meets criteria to be a subject.
  */
 function isSubject(arg: unknown): boolean {
@@ -121,7 +110,7 @@ function toRecord(subject: Subject): SubjectRecord {
 
 export default {
   new: new_,
-  from,
+  newRecord: newRecord_,
   isSubject,
   fromRecord,
   toRecord,
