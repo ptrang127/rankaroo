@@ -1,6 +1,6 @@
 // **** Variables **** //
 
-const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' + 
+const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' +
   'with the appropriate keys.';
 
 
@@ -45,7 +45,7 @@ function isCategory(arg: unknown): boolean {
   return (
     !!arg &&
     typeof arg === 'object' &&
-    'id' in arg && typeof arg.id === 'number' && 
+    'id' in arg && typeof arg.id === 'number' &&
     'name' in arg && typeof arg.name === 'string'
   );
 }

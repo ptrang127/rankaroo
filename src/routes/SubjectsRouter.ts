@@ -21,12 +21,17 @@ subjectRouter.get('/:id', async function (req, res) {
   res.send(subject);
 });
 
-// Example route: localhost:3000/subjects?categoryId=1
+subjectRouter.get('/random/:categoryId', async function (req, res) {
+  const categoryId = parseInt(req.params.categoryId);
+  const subjects: Subject[] = await SubjectService.getRandomSubjectsByCategory(categoryId);
+  res.send(subjects);
+});
+
 subjectRouter.get('/byCategory/:categoryId', async function (req, res) {
   console.log("by catgegory")
   const categoryId: number = parseInt(req.params.categoryId);
 
-  const subjectsByCategory: Subject[]= await SubjectService.getByCategory(categoryId);
+  const subjectsByCategory: Subject[] = await SubjectService.getByCategory(categoryId);
 
   res.send(subjectsByCategory)
 })
