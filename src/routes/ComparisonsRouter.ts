@@ -1,5 +1,4 @@
 import express from 'express';
-import pg from '../database/knex';
 import { Comparison } from '@src/models/Comparisons';
 import ComparisonsService from '@src/services/ComparisonsService';
 

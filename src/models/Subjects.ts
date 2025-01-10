@@ -1,12 +1,3 @@
-import Categories, { Category } from './Categories';
-
-
-// **** Variables **** //
-
-const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an object ' +
-  'with the appropriate keys.';
-
-
 // **** Types **** //
 
 export interface Subject {

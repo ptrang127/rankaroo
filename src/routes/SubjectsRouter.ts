@@ -1,5 +1,4 @@
 import express from 'express';
-import pg from '../database/knex';
 import { Subject } from '@src/models/Subjects';
 import SubjectService from '@src/services/SubjectService';
 

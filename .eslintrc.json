@@ -19,7 +19,7 @@
     "max-len": [
       "warn",
       {
-        "code": 80
+        "code": 150
       }
     ],
     "comma-dangle": ["warn", "always-multiline"],
