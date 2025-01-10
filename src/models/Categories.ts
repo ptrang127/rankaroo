@@ -11,6 +11,10 @@ export interface Category {
   name: string;
 }
 
+export interface CategoryRecord {
+  id: number;
+  name: string;
+}
 
 // **** Functions **** //
 
@@ -28,17 +32,6 @@ function new_(
 }
 
 /**
- * Get category instance from object.
- */
-function from(param: object): Category {
-  if (!isCategory(param)) {
-    throw new Error(INVALID_CONSTRUCTOR_PARAM);
-  }
-  const p = param as Category;
-  return new_(p.id, p.name);
-}
-
-/**
  * See if the param meets criteria to be a category.
  */
 function isCategory(arg: unknown): boolean {
@@ -50,11 +43,19 @@ function isCategory(arg: unknown): boolean {
   );
 }
 
+/**
+ * Create new Subject from Subject Record.
+ */
+function fromRecord(record: CategoryRecord): Category {
+  return new_(
+    record.id,
+    record.name);
+}
 
 // **** Export default **** //
 
 export default {
   new: new_,
-  from,
   isCategory,
+  fromRecord,
 } as const;
