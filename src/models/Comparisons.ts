@@ -1,5 +1,3 @@
-import Categories, { Category } from './Categories';
-
 // **** Types **** //
 
 export interface Comparison {
