@@ -18,7 +18,7 @@ comparisonRouter.post('/:firstId/:secondId/:voteId', async function (req, res) {
   const secondId = parseInt(req.params.secondId);
   const voteId = parseInt(req.params.voteId);
   const comparison: Comparison = await ComparisonsService.incrementComparisonByFirstSubjectIdAndSecondSubjectId(firstId, secondId, voteId);
-  res.send(comparison)
+  res.send(comparison);
 });
 
 export default comparisonRouter;

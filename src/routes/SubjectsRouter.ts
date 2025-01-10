@@ -28,12 +28,12 @@ subjectRouter.get('/random/:categoryId', async function (req, res) {
 });
 
 subjectRouter.get('/byCategory/:categoryId', async function (req, res) {
-  console.log("by catgegory")
+  console.log('by catgegory');
   const categoryId: number = parseInt(req.params.categoryId);
 
   const subjectsByCategory: Subject[] = await SubjectService.getByCategory(categoryId);
 
-  res.send(subjectsByCategory)
-})
+  res.send(subjectsByCategory);
+});
 
 export default subjectRouter;

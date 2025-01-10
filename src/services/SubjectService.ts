@@ -18,9 +18,9 @@ async function getBySubjectId(subjectId: number): Promise<Subject> {
 async function getByCategory(categoryId: number): Promise<Subject[]> {
   const subjectRecords = await pg('subjects').where({ category_id: categoryId }).select('*');
 
-  const subjects: Subject[] = subjectRecords.map(Subjects.fromRecord)
+  const subjects: Subject[] = subjectRecords.map(Subjects.fromRecord);
 
-  return subjects
+  return subjects;
 }
 
 async function getRandomSubjectsByCategory(categoryId: number): Promise<Subject[]> {
@@ -43,5 +43,5 @@ export default {
   getAllSubjects,
   getBySubjectId,
   getByCategory,
-  getRandomSubjectsByCategory
+  getRandomSubjectsByCategory,
 } as const;
