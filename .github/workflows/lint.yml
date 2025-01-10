@@ -2,7 +2,11 @@ name: Run ESLint
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   eslint:
@@ -17,7 +21,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 20 # or the version of Node.js your project uses
+        node-version:  # or the version of Node.js your project uses
 
     # Install dependencies
     - name: Install dependencies
